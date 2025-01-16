@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  validate-hash:
+    container_name: validate-hash
+    build: .
+    image: validate-hash:latest
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:8882:8882
+    environment:
+      - PORT=${PORT:-8882}
+      - MONGO_URL=${MONGO_URL:-mongourl}
+      - SECRET=${SECRET:-secret}
+
+networks:
+  default:
+    name: nginxnet
+    external: true
